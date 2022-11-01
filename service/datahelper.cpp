@@ -28,7 +28,8 @@ std::vector<EmployeeData> DataHelper::getDataFromFile(const std::string& fileNam
         if (count < MAX_NAME_LENGTH) {
             inData >> name;
             data.eName += name;
-            data.eName += " ";
+            if (count < 2)
+                data.eName += " ";
             count++;
         }
         else if (count >= MAX_NAME_LENGTH && count < (MAX_GRADE_LENGTH + MAX_NAME_LENGTH)) {
@@ -64,7 +65,7 @@ void DataHelper::editData(std::vector<EmployeeData> data, std::string eName, std
     std::fstream oData;
     oData.open(fileName);
     for (auto& e : data) {
-        std::cout << e.eName << "  " << eName << std::endl;
+        std::cout << e.eName << eName << std::endl;
         if (e.eName.compare(eName) == 0) {
             std::cout << "edit here";
             e.grade = grade;
