@@ -100,6 +100,15 @@ float DataHelper::calculateAverage(std::vector<int> grade)
     return res;
 }
 
+EmployeeGrade DataHelper::searchForId(int id, std::vector<EmployeeGrade> data)
+{
+    for (auto i : data) {
+        if (i.id == id) {
+            return i;
+        }
+    }
+}
+
 DataHelper::DataHelper()
 {
 

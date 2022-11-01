@@ -2,7 +2,7 @@
 #define SHAREMEMORY_H
 
 #include <QObject>
-#include </home/avn//practice/Utils/shmhelper.h>
+#include <../Utils/shmhelper.h>
 
 
 class ShareMemory : public QObject

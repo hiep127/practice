@@ -17,6 +17,21 @@ Window {
         "QML": 3,
         "OpenGL": 4
     }
+    signal sigUpdateDataOnQML(string name, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id )
+
+    function roundFloat(num) {
+        var res = num.toFixed(2)
+        return res
+    }
+
+    onSigUpdateDataOnQML: {
+        currentName.text = name
+        score[skill["Assembly"]] = assemScore
+        score[skill["C++"]] = cScore
+        score[skill["Java Script"]] = jsScore
+        score[skill["QML"]] = qmlScore
+        score[skill["OpenGL"]] = openGlScore
+    }
 
     Text {
         id: currentName
@@ -175,7 +190,7 @@ Window {
 
             Text {
                 id: average
-                text: model.average
+                text: roundFloat(model.average)
                 font.pixelSize: 30
                 anchors.right: parent.right
                 color: listEmployee.currentIndex === index ? "white" : "black"
@@ -188,6 +203,7 @@ Window {
                 anchors.fill: parent
                 onClicked: {
                     listEmployee.currentIndex = index;
+                    appMain.queryData(model.id)
                 }
             }
         }

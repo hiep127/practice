@@ -1,8 +1,8 @@
 #ifndef MESSAGEQUEUE_H
 #define MESSAGEQUEUE_H
 
-#include </home/avn/practice/Utils/mqhelper.h>
-#include </home/avn//practice/Utils/IPCDefine.h>
+#include <../Utils/mqhelper.h>
+#include <../Utils/IPCDefine.h>
 #include <QObject>
 #include <thread>
 //#include <queue>
@@ -16,9 +16,11 @@ public:
     void connect();
     void *receive();
     void runMQThread();
+    void searchForId(int id);
 
 signals:
     void sigDataChanged();
+    void sigEmployeeData(EmployeeGrade grade);
 
 private:
     mqd_t m_mqDes;

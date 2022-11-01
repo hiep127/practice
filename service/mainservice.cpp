@@ -7,8 +7,7 @@ MainService::MainService()
     m_shmHelper = new ShmHelper();
     this->createMQ();
     this->initData();
-    pthread_join(m_thread[ClientType::viewer], NULL);
-    pthread_join(m_thread[ClientType::editor], NULL);
+    m_thread[ClientType::viewer]->join();
 }
 
 MainService::~MainService()
@@ -31,48 +30,58 @@ void MainService::send(ClientType type, MyMess mess)
     m_mqHelper->send(mqDes, &mess);
 }
 
-void* MainService::receiveFromViewer(void*)
+void* MainService::receiveFromViewer()
 {
 
     MqHelper* viewerHelper = new MqHelper();
-    mqd_t _viewerMqDes = viewerHelper->connect(ClientType::viewer);;
     MyMess _viewerMess;
     while (true) {
-        ssize_t sz = viewerHelper->receive(_viewerMqDes, &_viewerMess);
+        ssize_t sz = viewerHelper->receive(m_viewerMqDes, &_viewerMess);
         if (sz > 0) {
             std::cout << "receive from viewer " << std::endl;
-            for (auto i : _viewerMess.grade) {
-                std::cout << i << " ";
+            int _type = _viewerMess.data[MQ_TYPE_INDEX];
+            switch (_type) {
+            case search: {
+                int id = _viewerMess.data[ID_INDEX];
+                EmployeeGrade res = m_dataHelper->searchForId(id, m_gradeData);
+                MyMess data;
+                data.data[MQ_TYPE_INDEX] = search;
+                strncpy(data.name, res.eName.c_str(), sizeof(res.eName));
+                for (int i = 0; i < 5; i++) {
+                    data.data[i] = res.grade[i];
+                }
+                viewerHelper->send(m_viewerMqDes, &data);
             }
-            std::cout << _viewerMess.name << _viewerMess.type << std::endl;
+            default:
+                break;
+            }
 
         }
     }
-    pthread_exit(NULL);
 }
 
-void *MainService::receiveFromEditor(void *)
+void *MainService::receiveFromEditor()
 {
     MqHelper* viewerHelper = new MqHelper();
-    mqd_t _editorMqDes = viewerHelper->connect(ClientType::editor);;
     MyMess* _editorMess = new MyMess();
     while (true) {
-        ssize_t sz = viewerHelper->receive(_editorMqDes, _editorMess);
+        ssize_t sz = viewerHelper->receive(m_editorMqDes, _editorMess);
         if (sz > 0) {
             // Do sth later
         }
     }
-    pthread_exit(NULL);
 }
 
 void MainService::runViewerMQ()
 {
-    pthread_create(&m_thread[ClientType::viewer], NULL, receiveFromViewer, NULL);
+    m_thread[ClientType::viewer] = new std::thread(&MainService::receiveFromViewer, this);
+    //t1.detach();
 }
 
 void MainService::runEditorMQ()
 {
-    pthread_create(&m_thread[ClientType::editor], NULL, receiveFromEditor, NULL);
+    std::thread t2 (&MainService::receiveFromEditor, this);
+    t2.detach();
 }
 
 void MainService::initData()
@@ -112,7 +121,7 @@ void MainService::notifyDataChanged()
     m_shmHelper->writeData(m_eData, m_shmDes);
     MyMess mess;
     mess.type = dataChanged;
-    mess.grade[0] = dataChanged;
+    mess.data[MQ_TYPE_INDEX] = dataChanged;
     strncpy (mess.name, "hello", sizeof("hello"));
     m_mqHelper->send(m_viewerMqDes, &mess);
 }

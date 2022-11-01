@@ -14,6 +14,9 @@
 
 #define MY_SHM "/my_shm"
 
+#define MQ_TYPE_INDEX 5
+#define ID_INDEX 6
+
 
 enum ClientType {
     viewer = 0,
@@ -28,7 +31,7 @@ enum MqType {
 
 
 struct MyMess {
-    int grade[5] {1,1,1,1,1};
+    int data[7] {1,1,1,1,1,0,0};
     char name[4096];
     int type;
 };
@@ -37,6 +40,12 @@ struct EmployeeData {
     int id;
     char name[128];
     float average;
+};
+
+struct EmployeeGrade {
+    int id;
+    std::string eName;
+    std::vector<int> grade;
 };
 
 #endif // IPCDEFINE_H

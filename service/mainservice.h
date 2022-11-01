@@ -7,10 +7,11 @@
 #include <sys/shm.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include </home/avn/practice/Utils/mqhelper.h>
-#include </home/avn//practice/Utils/IPCDefine.h>
+#include <../Utils/mqhelper.h>
+#include <../Utils/IPCDefine.h>
 #include <datahelper.h>
-#include </home/avn//practice/Utils/shmhelper.h>
+#include <../Utils/shmhelper.h>
+#include <thread>
 
 
 class MainService
@@ -20,8 +21,8 @@ public:
     ~MainService();
     void createMQ();
     void send(ClientType type, MyMess mess);
-    static void *receiveFromViewer(void*);
-    static void *receiveFromEditor(void*);
+    void *receiveFromViewer();
+    void *receiveFromEditor();
     void runViewerMQ();
     void runEditorMQ();
     void initData();
@@ -40,7 +41,7 @@ private:
     MqHelper* m_mqHelper;
     MyMess m_viewerMess;
     MyMess m_editorMess;
-    pthread_t m_thread[NUM_OF_THREAD];
+    std::thread* m_thread[NUM_OF_THREAD];
     DataHelper* m_dataHelper;
     ShmHelper* m_shmHelper;
     std::vector<EmployeeGrade> m_gradeData;

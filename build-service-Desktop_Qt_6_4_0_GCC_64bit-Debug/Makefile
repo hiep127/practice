@@ -53,11 +53,15 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Utils/mqhelper.cpp \
+		../Utils/shmhelper.cpp \
 		../service/datahelper.cpp \
-		../service/main.cpp 
+		../service/main.cpp \
+		../service/mainservice.cpp 
 OBJECTS       = mqhelper.o \
+		shmhelper.o \
 		datahelper.o \
-		main.o
+		main.o \
+		mainservice.o
 DIST          = ../../../Qt/6.4.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/common/linux.conf \
@@ -306,10 +310,15 @@ DIST          = ../../../Qt/6.4.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/features/lex.prf \
 		../service/service.pro ../Utils/IPCDefine.h \
 		../Utils/mqhelper.h \
+		../Utils/shmhelper.h \
 		DataDefine.h \
-		datahelper.h ../Utils/mqhelper.cpp \
+		ServiceDefine.h \
+		datahelper.h \
+		mainservice.h ../Utils/mqhelper.cpp \
+		../Utils/shmhelper.cpp \
 		../service/datahelper.cpp \
-		../service/main.cpp
+		../service/main.cpp \
+		../service/mainservice.cpp
 QMAKE_TARGET  = service
 DESTDIR       = 
 TARGET        = service
@@ -863,15 +872,30 @@ mqhelper.o: ../Utils/mqhelper.cpp ../Utils/mqhelper.h \
 		../Utils/IPCDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mqhelper.o ../Utils/mqhelper.cpp
 
+shmhelper.o: ../Utils/shmhelper.cpp ../Utils/shmhelper.h \
+		../Utils/IPCDefine.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o shmhelper.o ../Utils/shmhelper.cpp
+
 datahelper.o: ../service/datahelper.cpp ../service/datahelper.h \
-		../service/DataDefine.h
+		../service/ServiceDefine.h \
+		../Utils/IPCDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datahelper.o ../service/datahelper.cpp
 
-main.o: ../service/main.cpp /home/hiep/practice/practice/Utils/mqhelper.h \
-		/home/hiep/practice/practice/Utils/IPCDefine.h \
+main.o: ../service/main.cpp ../service/mainservice.h \
+		../Utils/mqhelper.h \
+		../Utils/IPCDefine.h \
 		../service/datahelper.h \
-		../service/DataDefine.h
+		../service/ServiceDefine.h \
+		../Utils/shmhelper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../service/main.cpp
+
+mainservice.o: ../service/mainservice.cpp ../service/mainservice.h \
+		../Utils/mqhelper.h \
+		../Utils/IPCDefine.h \
+		../service/datahelper.h \
+		../service/ServiceDefine.h \
+		../Utils/shmhelper.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainservice.o ../service/mainservice.cpp
 
 ####### Install
 

@@ -12,13 +12,9 @@
 
 
 
-#define FILE_LOCATION "/home/avn/practice/service/data.txt"
+#define FILE_LOCATION "../service/data.txt"
 
-struct EmployeeGrade {
-    int id;
-    std::string eName;
-    std::vector<int> grade;
-};
+
 
 
 

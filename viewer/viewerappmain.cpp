@@ -12,7 +12,9 @@ ViewerAppMain::ViewerAppMain()
     this->initView();
     this->initModel();
     m_messageQueue = new MessageQueue();
+    this->registerDataType();
     this->connectBetweenMqAndMain();
+    this->connectBetweenGUI();
     m_shm = new ShareMemory();
 }
 
@@ -24,6 +26,11 @@ ViewerAppMain::~ViewerAppMain()
 void ViewerAppMain::listSearch(QString inp)
 {
 
+}
+
+void ViewerAppMain::queryData(int id)
+{
+    m_messageQueue->searchForId(id);
 }
 
 
@@ -52,6 +59,19 @@ void ViewerAppMain::connectBetweenMqAndMain()
 {
     connect(m_messageQueue, SIGNAL(sigDataChanged()),
             this, SLOT(onSigDataChanged()));
+    connect(m_messageQueue, SIGNAL(sigEmployeeData(EmployeeGrade)),
+            this, SLOT(onSigEmployeeData(EmployeeGrade)));
+}
+
+void ViewerAppMain::connectBetweenGUI()
+{
+    connect(this,SIGNAL(sigUpdateData(QString,int,int,int,int,int,int)),
+            m_engine, SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
+}
+
+void ViewerAppMain::registerDataType()
+{
+    qRegisterMetaType<EmployeeData>("EmployeeData");
 }
 
 void ViewerAppMain::onSigDataChanged()
@@ -64,4 +84,9 @@ void ViewerAppMain::onSigDataChanged()
         list.append(new Employee(data.name, data.average, data.id));
     }
     m_model->setList(list);
+}
+
+void ViewerAppMain::onSigEmployeeData(EmployeeGrade grade)
+{
+
 }
