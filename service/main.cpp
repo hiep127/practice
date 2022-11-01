@@ -1,46 +1,36 @@
-#include <iostream>
-#include <string.h>
-#include <sys/errno.h>
-#include <stdio.h>
-#include <sys/shm.h>
-#include <sys/mman.h>
-#include <vector>
-#include <unistd.h>
-#include </home/hiep/practice/practice/Utils/mqhelper.h>
-#include </home/hiep/practice/practice/Utils/IPCDefine.h>
-#include <datahelper.h>
+#include "mainservice.h"
 
-#define APPROVAL 0666
+//#define APPROVAL 0666
 
-using namespace std;
+//using namespace std;
 
-struct mq_attr attr;
-mqd_t mqdes;
-char buff[MAX_MQ_MESS_LEN + 1];
-unsigned int prio;
-string msg;
-MqHelper helper;
+//struct mq_attr attr;
+//mqd_t mqdes;
+//char buff[MAX_MQ_MESS_LEN + 1];
+//unsigned int prio;
+//string msg;
+//MqHelper helper;
 
-void connect () {
-    mqdes = helper.connect();
-}
+//void connect () {
+//    mqdes = helper.connect();
+//}
 
-struct def {
-    int a = 0;
-    int b = 1;
-};
+//struct def {
+//    int a = 0;
+//    int b = 1;
+//};
 
-void *reic(void*) {
-        memset(buff, '\0', sizeof(buff));
-        while (true) {
-            ssize_t res = helper.receive(mqdes, buff);
-            if (res > 0) {
-                cout << buff << endl;
-            }
-            else perror("mq_receive error: ");
-        }
-        pthread_exit(NULL);
-}
+//void *reic(void*) {
+//        memset(buff, '\0', sizeof(buff));
+//        while (true) {
+//            ssize_t res = helper.receive(mqdes, buff);
+//            if (res > 0) {
+//                cout << buff << endl;
+//            }
+//            else perror("mq_receive error: ");
+//        }
+//        pthread_exit(NULL);
+//}
 
 int main()
 {
@@ -60,12 +50,13 @@ int main()
 //    munmap(a, 4096);
 //    close(sh_des);
 //    pthread_join(thr, NULL);
-    DataHelper dataHelper;
-    std::vector<EmployeeData> data;
-    data = dataHelper.getDataFromFile("/home/hiep/practice/practice/service/data.txt");
-    //dataHelper.printData(data);
-    std::vector<int> grade {1,1,1,1,1};
-    std::string ch = "Phan Hoang Hai";
-    dataHelper.editData(data, ch, grade, "/home/hiep/practice/practice/service/data.txt");
+//    DataHelper dataHelper;
+//    std::vector<EmployeeGrade> data;
+//    data = dataHelper.getDataFromFile("/home/hiep/practice/practice/service/data.txt");
+//    //dataHelper.printData(data);
+//    std::vector<int> grade {1,1,1,1,1};
+//    std::string ch = "Phan Hoang Hai";
+//    dataHelper.editData(data, ch, grade, "/home/hiep/practice/practice/service/data.txt");
+    MainService service;
     return 0;
 }

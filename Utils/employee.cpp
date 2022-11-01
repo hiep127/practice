@@ -31,7 +31,7 @@ QString Employee::employeeName() const
     return m_employeeName;
 }
 
-int Employee::average() const
+float Employee::average() const
 {
     return m_average;
 }

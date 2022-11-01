@@ -6,6 +6,7 @@
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #include <listmodel.h>
+#include <messagequeue.h>
 
 class ViewerAppMain : public QObject
 {
@@ -27,6 +28,7 @@ private:
     QQuickItem* m_rootObject;
     QQmlApplicationEngine* m_engine;
     ListModel* m_model ;
+    MessageQueue* m_messageQueue;
 };
 
 #endif // VIEWERAPPMAIN_H

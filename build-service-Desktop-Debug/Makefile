@@ -53,9 +53,15 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Utils/mqhelper.cpp \
-		../service/main.cpp 
+		../Utils/shmhelper.cpp \
+		../service/datahelper.cpp \
+		../service/main.cpp \
+		../service/mainservice.cpp 
 OBJECTS       = mqhelper.o \
-		main.o
+		shmhelper.o \
+		datahelper.o \
+		main.o \
+		mainservice.o
 DIST          = ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/common/unix.conf \
 		../../Qt/5.15.2/gcc_64/mkspecs/common/linux.conf \
@@ -227,8 +233,16 @@ DIST          = ../../Qt/5.15.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt/5.15.2/gcc_64/mkspecs/features/lex.prf \
 		../service/service.pro ../Utils/IPCDefine.h \
-		../Utils/mqhelper.h ../Utils/mqhelper.cpp \
-		../service/main.cpp
+		../Utils/mqhelper.h \
+		../Utils/shmhelper.h \
+		DataDefine.h \
+		ServiceDefine.h \
+		datahelper.h \
+		mainservice.h ../Utils/mqhelper.cpp \
+		../Utils/shmhelper.cpp \
+		../service/datahelper.cpp \
+		../service/main.cpp \
+		../service/mainservice.cpp
 QMAKE_TARGET  = service
 DESTDIR       = 
 TARGET        = service
@@ -630,8 +644,32 @@ mqhelper.o: ../Utils/mqhelper.cpp ../Utils/mqhelper.h \
 		../Utils/IPCDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mqhelper.o ../Utils/mqhelper.cpp
 
-main.o: ../service/main.cpp /home/avn/practice/Utils/mqhelper.h
+shmhelper.o: ../Utils/shmhelper.cpp ../Utils/shmhelper.h \
+		../Utils/IPCDefine.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o shmhelper.o ../Utils/shmhelper.cpp
+
+datahelper.o: ../service/datahelper.cpp ../service/datahelper.h \
+		../service/ServiceDefine.h \
+		/home/avn/practice/Utils/IPCDefine.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datahelper.o ../service/datahelper.cpp
+
+main.o: ../service/main.cpp ../service/mainservice.h \
+		/home/avn/practice/Utils/mqhelper.h \
+		../Utils/IPCDefine.h \
+		/home/avn/practice/Utils/IPCDefine.h \
+		../service/datahelper.h \
+		../service/ServiceDefine.h \
+		/home/avn/practice/Utils/shmhelper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../service/main.cpp
+
+mainservice.o: ../service/mainservice.cpp ../service/mainservice.h \
+		/home/avn/practice/Utils/mqhelper.h \
+		../Utils/IPCDefine.h \
+		/home/avn/practice/Utils/IPCDefine.h \
+		../service/datahelper.h \
+		../service/ServiceDefine.h \
+		/home/avn/practice/Utils/shmhelper.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainservice.o ../service/mainservice.cpp
 
 ####### Install
 

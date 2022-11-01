@@ -6,8 +6,11 @@ QT += quick
 
 SOURCES += \
         ../Utils/employee.cpp \
+        ../Utils/mqhelper.cpp \
+        ../Utils/shmhelper.cpp \
         listmodel.cpp \
         main.cpp \
+        messagequeue.cpp \
         viewerappmain.cpp
 
 RESOURCES += qml.qrc
@@ -26,6 +29,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../Utils/IPCDefine.h \
     ../Utils/employee.h \
+    ../Utils/mqhelper.h \
+    ../Utils/shmhelper.h \
     listmodel.h \
+    messagequeue.h \
     viewerappmain.h
+
+LIBS += -lrt \
+        -lpthread
+

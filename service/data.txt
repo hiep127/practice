@@ -3,6 +3,5 @@ Phan Hoang Hai 1 1 1 1 1
 La Quan Trung 4 4 4 4 5 
 Le Thi Hanh 3 4 5 5 4 
 Nguyen Van Quoc 4 3 5 4 3 
-Truong Tan Vang 4 4 4 4 4 
- 4 4 
- Khac Tung 3 2 4 5 3
+Truong Tan Vang 4 4 4 4 4
+Le Khac Tung 3 2 4 5 3

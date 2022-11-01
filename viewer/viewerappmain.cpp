@@ -11,6 +11,7 @@ ViewerAppMain::ViewerAppMain()
     m_model = new ListModel();
     initView();
     initModel();
+    m_messageQueue = new MessageQueue();
 }
 
 ViewerAppMain::~ViewerAppMain()

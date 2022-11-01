@@ -3,23 +3,18 @@
 #include <iostream>
 #include <fstream>
 
-//DataHelper *DataHelper::getInstance()
-//{
-//    if (instance == nullptr) {
-//        instance = new DataHelper();
-//    }
-//    return instance;
-//}
 
-std::vector<EmployeeData> DataHelper::getDataFromFile(const std::string& fileName)
+std::vector<EmployeeGrade> DataHelper::getDataFromFile(const std::string& fileName)
 {
-    std::vector<EmployeeData> res;
+    std::cout << "reading data" << std::endl;
+    std::vector<EmployeeGrade> res;
     std::ifstream inData;
     std::string name;
     int grade;
     int count = 0;
-    EmployeeData data;
+    EmployeeGrade data;
     inData.open(fileName);
+    int id = 0;
     if (!inData) {
         std::cout << "error while loading file" << std::endl;
         return res;
@@ -39,20 +34,24 @@ std::vector<EmployeeData> DataHelper::getDataFromFile(const std::string& fileNam
         }
         else {
             count = 0;
+            data.id = id;
+            id++;
             res.push_back(data);
             data.grade.clear();
             data.eName.clear();
         }
     }
     inData.close();
+    std::cout << "end reading data" << std::endl;
     return res;
 }
 
-void DataHelper::printData(std::vector<EmployeeData> data) const
+void DataHelper::printData(std::vector<EmployeeGrade> data) const
 {
     for (const auto &e : data) {
         std::cout << e.eName ;
         std::cout << std::endl;
+        std::cout << "ID: " << e.id << std::endl;
         for (int i = 0; i < MAX_GRADE_LENGTH; i++) {
             std::cout << e.grade[i] << " " << std::endl;
         }
@@ -60,7 +59,7 @@ void DataHelper::printData(std::vector<EmployeeData> data) const
     }
 }
 
-void DataHelper::editData(std::vector<EmployeeData> data, std::string eName, std::vector<int> grade, const std::string& fileName)
+void DataHelper::editData(std::vector<EmployeeGrade> data, std::string eName, std::vector<int> grade, const std::string& fileName)
 {
     std::fstream oData;
     oData.open(fileName);
@@ -76,6 +75,29 @@ void DataHelper::editData(std::vector<EmployeeData> data, std::string eName, std
         }
         oData << std::endl;
     }
+}
+
+std::vector<EmployeeData> DataHelper::convertToEmployeeList(std::vector<EmployeeGrade> data)
+{
+    std::vector<EmployeeData> res;
+    EmployeeData temp;
+    for (auto i : data) {
+        temp.id = i.id;
+        strncpy(temp.name, i.eName.c_str(), sizeof(i.eName));
+        temp.average = calculateAverage(i.grade);
+        res.push_back(temp);
+    }
+    return res;
+}
+
+float DataHelper::calculateAverage(std::vector<int> grade)
+{
+    float res = 0;
+    for (const auto& i : grade) {
+        res += i;
+    }
+    res = res / (grade.size());
+    return res;
 }
 
 DataHelper::DataHelper()

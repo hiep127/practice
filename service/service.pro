@@ -8,15 +8,20 @@ CONFIG -= qt
 
 SOURCES += \
         ../Utils/mqhelper.cpp \
+        ../Utils/shmhelper.cpp \
         datahelper.cpp \
-        main.cpp
+        main.cpp \
+        mainservice.cpp
 
 
 HEADERS += \
     ../Utils/IPCDefine.h \
     ../Utils/mqhelper.h \
+    ../Utils/shmhelper.h \
     DataDefine.h \
-    datahelper.h
+    ServiceDefine.h \
+    datahelper.h \
+    mainservice.h
 
 LIBS += -lrt \
         -lpthread

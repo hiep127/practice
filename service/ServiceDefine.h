@@ -8,7 +8,16 @@
 #define MAX_NAME_LENGTH 3
 #define MAX_GRADE_LENGTH 5
 
-struct EmployeeData {
+#define NUM_OF_THREAD 2
+
+#define FILE_LOCATION "/home/avn/practice/service/data.txt"
+
+struct EmployeeGrade {
+    int id;
     std::string eName;
     std::vector<int> grade;
 };
+
+
+
+

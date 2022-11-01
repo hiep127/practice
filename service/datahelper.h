@@ -3,7 +3,9 @@
 
 #include <vector>
 #include <string>
-#include <DataDefine.h>
+#include <ServiceDefine.h>
+#include </home/avn//practice/Utils/IPCDefine.h>
+
 
 
 
@@ -12,16 +14,14 @@ class DataHelper
 
 
 public:
-    //static DataHelper* getInstance();
     DataHelper();
     ~DataHelper();
-    std::vector<EmployeeData> getDataFromFile(const std::string& fileName);
-    void printData(std::vector<EmployeeData> data) const;
-    void editData(std::vector<EmployeeData> data, std::string eName, std::vector<int> grade, const std::string& fileName);
+    std::vector<EmployeeGrade> getDataFromFile(const std::string& fileName);
+    void printData(std::vector<EmployeeGrade> data) const;
+    void editData(std::vector<EmployeeGrade> data, std::string eName, std::vector<int> grade, const std::string& fileName);
+    std::vector<EmployeeData> convertToEmployeeList(std::vector<EmployeeGrade> data);
+    float calculateAverage(std::vector<int> grade);
 private:
-    //static DataHelper* instance;
-//    DataHelper();
-//    ~DataHelper();
 };
 
 #endif // DATAHELPER_H

@@ -1,6 +1,7 @@
 #ifndef MQHELPER_H
 #define MQHELPER_H
 
+#include "IPCDefine.h"
 #include <mqueue.h>
 
 class MqHelper
@@ -8,9 +9,10 @@ class MqHelper
 public:
     MqHelper();
     ~MqHelper();
-    mqd_t connect();
-    int send(mqd_t mqdes, char* text);
-    ssize_t receive(mqd_t mqdes, char* text);
+    mqd_t connect(ClientType type);
+    mqd_t create(ClientType type);
+    int send(mqd_t mqdes, MyMess* mess );
+    ssize_t receive(mqd_t mqdes, MyMess* mess );
 };
 
 #endif // MQHELPER_H
