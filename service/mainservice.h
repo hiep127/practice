@@ -19,7 +19,7 @@ public:
     MainService();
     ~MainService();
     void createMQ();
-    void send(char* address, MyMess mess);
+    void send(ClientType type, MyMess mess);
     static void *receiveFromViewer(void*);
     static void *receiveFromEditor(void*);
     void runViewerMQ();
@@ -28,6 +28,7 @@ public:
     void writeData(std::vector<EmployeeGrade> data);
     void initShm();
     void readData();
+    void notifyDataChanged();
 
 
 

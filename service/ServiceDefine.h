@@ -10,6 +10,8 @@
 
 #define NUM_OF_THREAD 2
 
+
+
 #define FILE_LOCATION "/home/avn/practice/service/data.txt"
 
 struct EmployeeGrade {

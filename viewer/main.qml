@@ -6,10 +6,10 @@ Window {
     objectName: "bg"
     id: bg
     width: 480
-    height: width * 3
+    height: 1000
     visible: true
 
-    property variant score : [-1, -1, -1, -1, -1]
+    property variant score : [  2, 3, 1, 5, 4]
     property var skill: {
         "Assembly": 0,
         "C++" : 1,
@@ -23,7 +23,7 @@ Window {
         font.pixelSize: 30
         font.bold: true
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 50
+        y: 20
         text: "Test"
     }
 
@@ -31,27 +31,32 @@ Window {
         id: scoreModel
         ListElement {
             name: "Assembly"
+            imageFile : ":/../image/assembly.png"
         }
         ListElement {
             name: "C++"
+            imageFile : ":/../image/C++.png"
         }
         ListElement {
             name: "Java Script"
+            imageFile : ":/../image/JS.png"
         }
         ListElement {
             name: "QML"
+            imageFile : ":/../image/QT.png"
         }
         ListElement {
             name: "OpenGL"
+            imageFile : ":/../image/openGL.png"
         }
     }
 
     ListView {
         id: info
         anchors.top:  currentName.bottom
-        anchors.topMargin: 40
+        anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
-        height: 250
+        height: 440
         width: bg.width - 100
         model: scoreModel
         interactive: false
@@ -59,27 +64,41 @@ Window {
         delegate :Item {
             id: infoDelegate
             width: parent.width
-            height: 50
+            height: 80
             Row {
                 spacing: 30
                 Image {
-
+                    id: scoreImage
+                    source: model.imageFile
+                    width: 50
+                    height: 50
+                    smooth: true
+                    fillMode: Image.PreserveAspectFit
                 }
 
                 Text {
                     id: scoreName
                     text: model.name
-                    font.pixelSize: 20
+                    font.pixelSize: 30
+                    anchors.verticalCenter: scoreImage.verticalCenter
+                    width: 150
                 }
 
                 Text {
                     id: scoreValue
                     text: score[skill[scoreName.text]] + '/5'
-                    font.pixelSize: 20
+                    font.pixelSize: 30
+                    anchors.verticalCenter: scoreImage.verticalCenter
+                    width: 50
                 }
 
                 Image {
-
+                    id: checkImage
+                    source: score[skill[scoreName.text]] >= 3 ? ":/../image/green.png" : ":/../image/red.png"
+                    width: 50
+                    height: 50
+                    smooth: true
+                    fillMode: Image.PreserveAspectCrop
                 }
             }
         }

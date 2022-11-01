@@ -7,6 +7,7 @@ ListModel::ListModel(QObject *parent)
 {
     m_roleNames[E_ROLE_NAME] = "employeeName";
     m_roleNames[E_ROLE_AVERAGE] = "average";
+    m_roleNames[E_ROLE_ID] = "id";
 }
 
 ListModel::~ListModel()
@@ -34,6 +35,9 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
             break;
         case E_ROLE_AVERAGE:
             m_element = element->average();
+            break;
+        case E_ROLE_ID:
+            m_element = element->id();
             break;
         default:
             break;

@@ -1,12 +1,17 @@
 #ifndef VIEWERAPPMAIN_H
 #define VIEWERAPPMAIN_H
 
+#include "sharememory.h"
 #include <QObject>
 #include <QQmlEngine>
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #include <listmodel.h>
 #include <messagequeue.h>
+#include </home/avn/practice/Utils/mqhelper.h>
+#include </home/avn//practice/Utils/IPCDefine.h>
+#include </home/avn//practice/Utils/shmhelper.h>
+
 
 class ViewerAppMain : public QObject
 {
@@ -22,6 +27,11 @@ public:
 private:
     void initView();
     void initModel();
+    void connectBetweenMqAndMain();
+    void listDataChange();
+
+private slots:
+    void onSigDataChanged();
 
 private:
     QQuickView* m_view;
@@ -29,6 +39,9 @@ private:
     QQmlApplicationEngine* m_engine;
     ListModel* m_model ;
     MessageQueue* m_messageQueue;
+    ShareMemory* m_shm;
+    std::vector<EmployeeData> m_eData;
+
 };
 
 #endif // VIEWERAPPMAIN_H

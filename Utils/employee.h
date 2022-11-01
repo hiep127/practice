@@ -9,20 +9,25 @@ class Employee : public QObject
     Q_OBJECT
     Q_PROPERTY(QString employeeName READ employeeName WRITE setEmployeeName NOTIFY employeeNameChanged);
     Q_PROPERTY(float average READ average WRITE setAverage NOTIFY averageChanged)
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
 public:
     Employee(QObject *parent = nullptr);
     ~Employee();
-    Employee(QString name, int av);
+    Employee(QString name, float av, int id = -1);
     void setEmployeeName(QString name);
-    void setAverage(int average);
+    void setAverage(float average);
+    void setId(int id);
     QString employeeName() const;
     float average() const;
+    int id() const;
 signals:
     void employeeNameChanged();
     void averageChanged();
+    void idChanged();
 private:
     QString m_employeeName;
     float m_average;
+    int m_id;
 };
 Q_DECLARE_METATYPE(Employee*)
 

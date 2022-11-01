@@ -3,13 +3,22 @@
 
 #include </home/avn/practice/Utils/mqhelper.h>
 #include </home/avn//practice/Utils/IPCDefine.h>
+#include <QObject>
+#include <thread>
+//#include <queue>
 
-class MessageQueue
+class MessageQueue : public QObject
 {
+    Q_OBJECT
 public:
-    MessageQueue();
+    MessageQueue(QObject* parent = nullptr);
     ~MessageQueue();
     void connect();
+    void *receive();
+    void runMQThread();
+
+signals:
+    void sigDataChanged();
 
 private:
     mqd_t m_mqDes;
@@ -17,7 +26,8 @@ private:
     unsigned int m_prio;
     MqHelper* m_mqHelper;
     MyMess m_mqMess;
-    pthread_t m_thread;
+    //std::thread m_thread;
+    //static
 };
 
 #endif // MESSAGEQUEUE_H

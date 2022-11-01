@@ -16,6 +16,7 @@ public:
     enum E_ROLES {
         E_ROLE_NAME,
         E_ROLE_AVERAGE,
+        E_ROLE_ID,
     };
 
 public:

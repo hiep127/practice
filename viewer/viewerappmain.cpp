@@ -9,9 +9,11 @@ ViewerAppMain::ViewerAppMain()
     m_rootObject = nullptr;
     m_view = nullptr;
     m_model = new ListModel();
-    initView();
-    initModel();
+    this->initView();
+    this->initModel();
     m_messageQueue = new MessageQueue();
+    this->connectBetweenMqAndMain();
+    m_shm = new ShareMemory();
 }
 
 ViewerAppMain::~ViewerAppMain()
@@ -43,5 +45,23 @@ void ViewerAppMain::initModel()
     list.append(new Employee("hiep", 2));
     list.append(new Employee("hiep", 2));
     list.append(new Employee("hiep", 2));
+    m_model->setList(list);
+}
+
+void ViewerAppMain::connectBetweenMqAndMain()
+{
+    connect(m_messageQueue, SIGNAL(sigDataChanged()),
+            this, SLOT(onSigDataChanged()));
+}
+
+void ViewerAppMain::onSigDataChanged()
+{
+    std::cout << "receiving3" << std::endl;
+    m_eData = m_shm->readData();
+    QList<Employee*> list;
+    for (auto data : m_eData) {
+        std::cout << data.name << std::endl;
+        list.append(new Employee(data.name, data.average, data.id));
+    }
     m_model->setList(list);
 }

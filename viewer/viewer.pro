@@ -11,6 +11,7 @@ SOURCES += \
         listmodel.cpp \
         main.cpp \
         messagequeue.cpp \
+        sharememory.cpp \
         viewerappmain.cpp
 
 RESOURCES += qml.qrc
@@ -35,8 +36,16 @@ HEADERS += \
     ../Utils/shmhelper.h \
     listmodel.h \
     messagequeue.h \
+    sharememory.h \
     viewerappmain.h
 
 LIBS += -lrt \
         -lpthread
+
+DISTFILES += \
+    ../image/C++.png \
+    ../image/JS.png \
+    ../image/QT.png \
+    ../image/assembly.png \
+    ../image/openGL.png
 

@@ -30,8 +30,7 @@ enum MqType {
 struct MyMess {
     int grade[5] {1,1,1,1,1};
     char name[4096];
-    MqType type;
-
+    int type;
 };
 
 struct EmployeeData {

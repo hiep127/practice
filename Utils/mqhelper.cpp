@@ -49,6 +49,7 @@ mqd_t MqHelper::create(ClientType type)
 
 int MqHelper::send(mqd_t mqdes, MyMess* mess )
 {
+    std::cout << mess->type << std::endl ;
     int res = mq_send(mqdes, (char*) mess, 1024, 0);
     if (res == -1 ) perror("mq_send error: ");
     return res;
@@ -56,7 +57,8 @@ int MqHelper::send(mqd_t mqdes, MyMess* mess )
 
 ssize_t MqHelper::receive(mqd_t mqdes, MyMess* mess)
 {
-    ssize_t res= mq_receive(mqdes, (char*) mess, MAX_MQ_MESS_LEN + 2, NULL);
+    ssize_t res= mq_receive(mqdes, (char*) mess, MAX_MQ_MESS_LEN + 3, NULL);
+    std::cout << "hiep " <<  mess->name <<  "    " << mess->type << std::endl;
     if (res == -1 ) perror("mq_receive error: ");
     return res;
 }
