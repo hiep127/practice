@@ -84,3 +84,13 @@ void MessageQueue::requestFullList()
     mess.data[MQ_TYPE_INDEX] = MqType::getFullList;
     m_mqHelper->send(m_mqDes, &mess);
 }
+
+void MessageQueue::editData(const std::vector<int> &data)
+{
+    MyMess mess;
+    for (int i = 0; i < 7; i++) {
+        mess.data[i] = data[i];
+    }
+    m_mqHelper->send(m_mqDes, &mess);
+
+}

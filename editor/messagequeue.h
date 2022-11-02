@@ -19,6 +19,7 @@ public:
     void queryForId(int id);
     void searchText(QString inp);
     void requestFullList();
+    void editData(const std::vector<int>& data);
 
 
 signals:

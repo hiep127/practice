@@ -36,7 +36,7 @@ enum MqType {
 struct MyMess {
     int data[7] {1,1,1,1,1,0,0};
     char name[4096];
-    int type;
+    int type; //k gui duoc
 };
 
 struct EmployeeData {

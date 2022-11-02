@@ -43,7 +43,9 @@ void EditorAppMain::requestFullList()
 
 void EditorAppMain::editData(int id, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore)
 {
-    std::cout << cScore << std::endl;
+    //std::cout << cScore << std::endl;
+    std::vector<int> temp {assemScore, cScore, jsScore, qmlScore, openGlScore, MqType::edit, id};
+    m_messageQueue->editData(temp);
 }
 
 

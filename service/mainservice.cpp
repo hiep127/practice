@@ -9,6 +9,7 @@ MainService::MainService()
     this->initData();
     this->initShm();
     m_thread[ClientType::viewer]->join();
+    m_thread[ClientType::editor]->join();
 }
 
 MainService::~MainService()
@@ -51,11 +52,12 @@ void* MainService::receiveFromViewer()
 void *MainService::receiveFromEditor()
 {
     MqHelper* viewerHelper = new MqHelper();
-    MyMess* _editorMess = new MyMess();
+    MyMess _editorMess;
     while (true) {
-        ssize_t sz = viewerHelper->receive(m_editorMqDes, _editorMess);
+        ssize_t sz = viewerHelper->receive(m_editorMqDes, &_editorMess);
         if (sz > 0) {
-            // Do sth later
+            std::cout << "receive from editor " << std::endl;
+            this->processMessage(ClientType::viewer, _editorMess, viewerHelper);
         }
     }
 }
@@ -155,7 +157,10 @@ void MainService::processMessage(ClientType type, MyMess &mess, MqHelper *helper
         m_shmHelper->writeData(m_eData, m_addresForWrite);
         this->notifyDataChanged(m_eData);
         break;
+    case MqType::edit: {
 
+            break;
+        }
     }
     default:
         break;
