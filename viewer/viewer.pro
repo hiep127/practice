@@ -12,7 +12,7 @@ SOURCES += \
         main.cpp \
         messagequeue.cpp \
         sharememory.cpp \
-        EditorAppMain.cpp
+        viewerappmain.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,7 +37,7 @@ HEADERS += \
     listmodel.h \
     messagequeue.h \
     sharememory.h \
-    EditorAppMain.h
+    viewerappmain.h
 
 LIBS += -lrt \
         -lpthread

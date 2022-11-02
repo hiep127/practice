@@ -1,5 +1,5 @@
-#ifndef EditorAppMain_H
-#define EditorAppMain_H
+#ifndef ViewerAppMain_H
+#define ViewerAppMain_H
 
 #include "sharememory.h"
 #include <QObject>
@@ -13,12 +13,12 @@
 #include <../Utils/shmhelper.h>
 
 
-class EditorAppMain : public QObject
+class ViewerAppMain : public QObject
 {
     Q_OBJECT
 public:
-    EditorAppMain();
-    ~EditorAppMain();
+    ViewerAppMain();
+    ~ViewerAppMain();
 
     Q_INVOKABLE void listSearch(QString inp);
     Q_INVOKABLE void queryData(int id);
@@ -52,4 +52,4 @@ private:
 
 };
 
-#endif // EditorAppMain_H
+#endif // ViewerAppMain_H

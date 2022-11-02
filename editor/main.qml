@@ -18,7 +18,7 @@ Window {
     property string searchText
     property int currentId: 0
 
-    signal sigUpdateDataOnQML(string name, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id )
+    signal sigUpdateDataOnQML(string eName, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id )
     signal sigListChangedOnQML()
 
     function roundFloat(num) {
@@ -26,13 +26,23 @@ Window {
         return res
     }
 
-    onSigUpdateDataOnQML: {
-        currentName.text = name
-        root.assemblyScore = assemScore
-        root.cScore = cScore
-        root.jsSCore = jsScore
-        root.qmlScore = qmlScore
-        root.openGlScore = openGlScore
+//     updateGradeData (eName, assemScore, cScore, jsScore, qmlScore, openGlScore, id) {
+//        currentName.text = eName
+//        root.assemblyScore = assemScore
+//        root.cScore = cScore
+//        root.jsSCore = jsScore
+//        root.qmlScore = qmlScore
+//        root.openGlScore = openGlScore
+//    }
+
+    onSigUpdateDataOnQML: /*function(eName, assemScore, cScore, jsScore, qmlScore, openGlScore, id)*/ {
+        console.log("hiep")
+        currentName.text = eName
+        assembly.score = assemScore
+        cPlus.score = cScore
+        java.score = jsScore
+        qml.score = qmlScore
+        openGL.score = openGlScore
     }
 
     onSigListChangedOnQML: {

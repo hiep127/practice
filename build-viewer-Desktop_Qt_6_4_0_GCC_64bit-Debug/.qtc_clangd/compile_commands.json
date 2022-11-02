@@ -29,7 +29,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -97,7 +97,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -165,7 +165,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -233,7 +233,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -266,10 +266,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "/home/hiep/practice/practice/viewer/listmodel.cpp"
+        "/home/hiep/practice/practice/editor/editorappmain.cpp"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/listmodel.cpp"
+    "file": "/home/hiep/practice/practice/editor/editorappmain.cpp"
 },
 {
     "arguments": [
@@ -301,7 +301,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -334,10 +334,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "/home/hiep/practice/practice/viewer/main.cpp"
+        "/home/hiep/practice/practice/editor/listmodel.cpp"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/main.cpp"
+    "file": "/home/hiep/practice/practice/editor/listmodel.cpp"
 },
 {
     "arguments": [
@@ -369,7 +369,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -402,10 +402,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "/home/hiep/practice/practice/viewer/messagequeue.cpp"
+        "/home/hiep/practice/practice/editor/main.cpp"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/messagequeue.cpp"
+    "file": "/home/hiep/practice/practice/editor/main.cpp"
 },
 {
     "arguments": [
@@ -437,7 +437,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -470,10 +470,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "/home/hiep/practice/practice/viewer/sharememory.cpp"
+        "/home/hiep/practice/practice/editor/messagequeue.cpp"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/sharememory.cpp"
+    "file": "/home/hiep/practice/practice/editor/messagequeue.cpp"
 },
 {
     "arguments": [
@@ -505,7 +505,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -538,10 +538,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "/home/hiep/practice/practice/viewer/viewerappmain.cpp"
+        "/home/hiep/practice/practice/editor/sharememory.cpp"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/viewerappmain.cpp"
+    "file": "/home/hiep/practice/practice/editor/sharememory.cpp"
 },
 {
     "arguments": [
@@ -573,75 +573,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtGui",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQmlModels",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQml",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQmlIntegration",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtNetwork",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtCore",
-        "-I/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug",
-        "-I/home/hiep/Qt/6.4.0/gcc_64/mkspecs/linux-clang",
-        "-isystem",
-        "/usr/include/c++/12",
-        "-isystem",
-        "/usr/include/x86_64-linux-gnu/c++/12",
-        "-isystem",
-        "/usr/include/c++/12/backward",
-        "-isystem",
-        "/usr/local/include",
-        "-isystem",
-        "/home/hiep/Qt/Tools/QtCreator/libexec/qtcreator/clang/lib/clang/14.0.3/include",
-        "-isystem",
-        "/usr/include/x86_64-linux-gnu",
-        "-isystem",
-        "/usr/include",
-        "-fmessage-length=0",
-        "-fdiagnostics-show-note-include-stack",
-        "-fretain-comments-from-system-headers",
-        "-fmacro-backtrace-limit=0",
-        "-ferror-limit=1000",
-        "-x",
-        "c++-header",
-        "/home/hiep/practice/practice/Utils/IPCDefine.h"
-    ],
-    "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/Utils/IPCDefine.h"
-},
-{
-    "arguments": [
-        "clang",
-        "-Wno-documentation-unknown-command",
-        "-Wno-unknown-warning-option",
-        "-Wno-unknown-pragmas",
-        "-nostdinc",
-        "-nostdinc++",
-        "-pipe",
-        "-g",
-        "-std=gnu++1z",
-        "-Wall",
-        "-Wextra",
-        "-fPIC",
-        "-D_REENTRANT",
-        "-fsyntax-only",
-        "-m64",
-        "--target=x86_64-pc-linux-gnu",
-        "-DQT_QML_DEBUG",
-        "-DQT_QUICK_LIB",
-        "-DQT_OPENGL_LIB",
-        "-DQT_GUI_LIB",
-        "-DQT_QMLMODELS_LIB",
-        "-DQT_QML_LIB",
-        "-DQT_QMLINTEGRATION_LIB",
-        "-DQT_NETWORK_LIB",
-        "-DQT_CORE_LIB",
-        "-DQ_CREATOR_RUN",
-        "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
-        "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -709,7 +641,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -777,7 +709,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -845,7 +777,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -878,10 +810,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/hiep/practice/practice/viewer/listmodel.h"
+        "/home/hiep/practice/practice/editor/editorappmain.h"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/listmodel.h"
+    "file": "/home/hiep/practice/practice/editor/editorappmain.h"
 },
 {
     "arguments": [
@@ -913,7 +845,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -946,10 +878,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/hiep/practice/practice/viewer/messagequeue.h"
+        "/home/hiep/practice/practice/editor/listmodel.h"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/messagequeue.h"
+    "file": "/home/hiep/practice/practice/editor/listmodel.h"
 },
 {
     "arguments": [
@@ -981,7 +913,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -1014,10 +946,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/hiep/practice/practice/viewer/sharememory.h"
+        "/home/hiep/practice/practice/editor/messagequeue.h"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/sharememory.h"
+    "file": "/home/hiep/practice/practice/editor/messagequeue.h"
 },
 {
     "arguments": [
@@ -1049,7 +981,7 @@
         "-DQ_CREATOR_RUN",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders",
         "-I/home/hiep/Qt/Tools/QtCreator/share/qtcreator/cplusplus/wrappedQtHeaders/QtCore",
-        "-I/home/hiep/practice/practice/viewer",
+        "-I/home/hiep/practice/practice/editor",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtQuick",
         "-I/home/hiep/Qt/6.4.0/gcc_64/include/QtOpenGL",
@@ -1082,9 +1014,9 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/hiep/practice/practice/viewer/viewerappmain.h"
+        "/home/hiep/practice/practice/editor/sharememory.h"
     ],
     "directory": "/home/hiep/practice/practice/build-viewer-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/viewer/viewerappmain.h"
+    "file": "/home/hiep/practice/practice/editor/sharememory.h"
 }
 ]

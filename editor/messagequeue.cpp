@@ -17,7 +17,7 @@ MessageQueue::~MessageQueue()
 void MessageQueue::connect()
 {
     std::cout << "conencting" << std::endl;
-    m_mqDes = m_mqHelper->connect(ClientType::viewer);
+    m_mqDes = m_mqHelper->connect(ClientType::editor);
     this->runMQThread();
 }
 
@@ -43,8 +43,10 @@ void *MessageQueue::receive()
                 _grade.grade.resize(5);
                 for (int i = 0; i < 5; i++) {
                     _grade.grade[i] = m_mqMess.data[i];
+                    std::cout << _grade.grade[i] << std::endl;
                 }
                 emit sigEmployeeData(_grade);
+                std::cout << "receiving2     " << std::endl;
                 break;
             }
             default:

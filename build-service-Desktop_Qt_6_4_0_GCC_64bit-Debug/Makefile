@@ -308,7 +308,7 @@ DIST          = ../../../Qt/6.4.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt/6.4.0/gcc_64/mkspecs/features/lex.prf \
-		../service/service.pro ../Utils/IPCDefine.h \
+		../service/service.pro ../Utils/CommonDefine.h \
 		../Utils/mqhelper.h \
 		../Utils/shmhelper.h \
 		DataDefine.h \
@@ -869,21 +869,21 @@ compiler_clean:
 ####### Compile
 
 mqhelper.o: ../Utils/mqhelper.cpp ../Utils/mqhelper.h \
-		../Utils/IPCDefine.h
+		../Utils/CommonDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mqhelper.o ../Utils/mqhelper.cpp
 
 shmhelper.o: ../Utils/shmhelper.cpp ../Utils/shmhelper.h \
-		../Utils/IPCDefine.h
+		../Utils/CommonDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o shmhelper.o ../Utils/shmhelper.cpp
 
 datahelper.o: ../service/datahelper.cpp ../service/datahelper.h \
 		../service/ServiceDefine.h \
-		../Utils/IPCDefine.h
+		../Utils/CommonDefine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datahelper.o ../service/datahelper.cpp
 
 main.o: ../service/main.cpp ../service/mainservice.h \
 		../Utils/mqhelper.h \
-		../Utils/IPCDefine.h \
+		../Utils/CommonDefine.h \
 		../service/datahelper.h \
 		../service/ServiceDefine.h \
 		../Utils/shmhelper.h
@@ -891,7 +891,7 @@ main.o: ../service/main.cpp ../service/mainservice.h \
 
 mainservice.o: ../service/mainservice.cpp ../service/mainservice.h \
 		../Utils/mqhelper.h \
-		../Utils/IPCDefine.h \
+		../Utils/CommonDefine.h \
 		../service/datahelper.h \
 		../service/ServiceDefine.h \
 		../Utils/shmhelper.h

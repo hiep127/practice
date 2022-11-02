@@ -18,6 +18,9 @@
 #define ID_INDEX 6
 #define NUM_INDEX 6
 
+#define MAX_DATA 7
+#define NUM_OF_SKILL 5
+
 
 enum ClientType {
     viewer = 0,

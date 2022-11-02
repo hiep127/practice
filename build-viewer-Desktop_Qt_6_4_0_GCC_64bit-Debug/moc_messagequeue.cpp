@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../viewer/messagequeue.h"
+#include "../editor/messagequeue.h"
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'messagequeue.h' doesn't include <QObject>."
@@ -26,13 +26,14 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 namespace {
 struct qt_meta_stringdata_MessageQueue_t {
-    uint offsetsAndSizes[12];
+    uint offsetsAndSizes[14];
     char stringdata0[13];
     char stringdata1[15];
     char stringdata2[1];
-    char stringdata3[16];
-    char stringdata4[14];
-    char stringdata5[6];
+    char stringdata3[4];
+    char stringdata4[16];
+    char stringdata5[14];
+    char stringdata6[6];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MessageQueue_t::offsetsAndSizes) + ofs), len 
@@ -41,13 +42,15 @@ Q_CONSTINIT static const qt_meta_stringdata_MessageQueue_t qt_meta_stringdata_Me
         QT_MOC_LITERAL(0, 12),  // "MessageQueue"
         QT_MOC_LITERAL(13, 14),  // "sigDataChanged"
         QT_MOC_LITERAL(28, 0),  // ""
-        QT_MOC_LITERAL(29, 15),  // "sigEmployeeData"
-        QT_MOC_LITERAL(45, 13),  // "EmployeeGrade"
-        QT_MOC_LITERAL(59, 5)   // "grade"
+        QT_MOC_LITERAL(29, 3),  // "num"
+        QT_MOC_LITERAL(33, 15),  // "sigEmployeeData"
+        QT_MOC_LITERAL(49, 13),  // "EmployeeGrade"
+        QT_MOC_LITERAL(63, 5)   // "grade"
     },
     "MessageQueue",
     "sigDataChanged",
     "",
+    "num",
     "sigEmployeeData",
     "EmployeeGrade",
     "grade"
@@ -69,12 +72,12 @@ Q_CONSTINIT static const uint qt_meta_data_MessageQueue[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   26,    2, 0x06,    1 /* Public */,
-       3,    1,   27,    2, 0x06,    2 /* Public */,
+       1,    1,   26,    2, 0x06,    1 /* Public */,
+       4,    1,   29,    2, 0x06,    3 /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, 0x80000000 | 5,    6,
 
        0        // eod
 };
@@ -90,6 +93,7 @@ Q_CONSTINIT const QMetaObject MessageQueue::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<MessageQueue, std::true_type>,
         // method 'sigDataChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'sigEmployeeData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<EmployeeGrade, std::false_type>
@@ -103,14 +107,14 @@ void MessageQueue::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         auto *_t = static_cast<MessageQueue *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->sigDataChanged(); break;
+        case 0: _t->sigDataChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 1: _t->sigEmployeeData((*reinterpret_cast< std::add_pointer_t<EmployeeGrade>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (MessageQueue::*)();
+            using _t = void (MessageQueue::*)(int );
             if (_t _q_method = &MessageQueue::sigDataChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
@@ -157,9 +161,10 @@ int MessageQueue::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void MessageQueue::sigDataChanged()
+void MessageQueue::sigDataChanged(int _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1

@@ -30,10 +30,11 @@ public:
     void writeData(std::vector<EmployeeGrade> data);
     void initShm();
     void readData();
-    void notifyDataChanged(std::vector<EmployeeData> data);
-    void queryData(int id, MqHelper* helper);
-    void searchText(std::string text, MqHelper* helper);
-    void processMessage(ClientType type, MyMess& mess, MqHelper* helper);
+    void notifyDataChanged(std::vector<EmployeeData> data, MqHelper *helper, mqd_t mqDes);
+    void queryData(int id, MqHelper* helper, mqd_t mqDes);
+    void searchText(std::string text, MqHelper* helper, mqd_t mqDes);
+    void processMessage(ClientType type, MyMess& mess, MqHelper* helper, mqd_t mqDes);
+    void editData(const MyMess& mess, MqHelper *helper);
 
 
 

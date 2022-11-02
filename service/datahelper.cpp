@@ -59,21 +59,24 @@ void DataHelper::printData(std::vector<EmployeeGrade> data) const
     }
 }
 
-void DataHelper::editData(std::vector<EmployeeGrade> data, std::string eName, std::vector<int> grade, const std::string& fileName)
+void DataHelper::editData(std::vector<EmployeeGrade> &data, std::vector<int> eData, const std::string& fileName)
 {
     std::fstream oData;
     oData.open(fileName);
     for (auto& e : data) {
-        std::cout << e.eName << eName << std::endl;
-        if (e.eName.compare(eName) == 0) {
+        if (eData[ID_INDEX] == e.id) {
             std::cout << "edit here";
-            e.grade = grade;
+            for (int i = 0; i < NUM_OF_SKILL; i++) {
+                e.grade[i] = eData[i];
+            }
         }
-        oData << e.eName << " ";
-        for (auto g : e.grade) {
-            oData << g << " ";
+        for (auto g : data) {
+            oData << g.eName << " ";
+            for (auto i : g.grade) {
+                oData << i << " ";
+            }
+            oData << std::endl;
         }
-        oData << std::endl;
     }
 }
 
@@ -115,6 +118,7 @@ std::vector<EmployeeData> DataHelper::searchForText(std::string text, std::vecto
 EmployeeGrade DataHelper::queryForId(int id, std::vector<EmployeeGrade> data)
 {
     for (auto i : data) {
+        std::cout << i.id << "    " << id << std::endl;
         if (i.id == id) {
             return i;
         }

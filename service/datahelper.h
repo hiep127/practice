@@ -18,7 +18,7 @@ public:
     ~DataHelper();
     std::vector<EmployeeGrade> getDataFromFile(const std::string& fileName);
     void printData(std::vector<EmployeeGrade> data) const;
-    void editData(std::vector<EmployeeGrade> data, std::vector<int> eData);
+    void editData(std::vector<EmployeeGrade> &data, std::vector<int> eData, const std::string& fileName);
     std::vector<EmployeeData> convertToEmployeeList(std::vector<EmployeeGrade> data);
     float calculateAverage(std::vector<int> grade);
     EmployeeGrade queryForId(int id, std::vector<EmployeeGrade> data);

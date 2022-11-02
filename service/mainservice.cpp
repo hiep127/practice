@@ -44,20 +44,20 @@ void* MainService::receiveFromViewer()
         ssize_t sz = viewerHelper->receive(m_viewerMqDes, &_viewerMess);
         if (sz > 0) {
             std::cout << "receive from viewer " << std::endl;
-            this->processMessage(ClientType::viewer, _viewerMess, viewerHelper);
+            this->processMessage(ClientType::viewer, _viewerMess, viewerHelper, m_viewerMqDes);
         }
     }
 }
 
 void *MainService::receiveFromEditor()
 {
-    MqHelper* viewerHelper = new MqHelper();
+    MqHelper* editorHelper = new MqHelper();
     MyMess _editorMess;
     while (true) {
-        ssize_t sz = viewerHelper->receive(m_editorMqDes, &_editorMess);
+        ssize_t sz = editorHelper->receive(m_editorMqDes, &_editorMess);
         if (sz > 0) {
             std::cout << "receive from editor " << std::endl;
-            this->processMessage(ClientType::viewer, _editorMess, viewerHelper);
+            this->processMessage(ClientType::editor, _editorMess, editorHelper, m_editorMqDes);
         }
     }
 }
@@ -93,7 +93,8 @@ void MainService::initShm()
 {
     m_shmDes = m_shmHelper->createShm();
     m_addresForWrite = m_shmHelper->createAddrrForWrite(m_shmDes);
-    this->notifyDataChanged(m_eData);
+    this->notifyDataChanged(m_eData, m_mqHelper, m_viewerMqDes);
+    this->notifyDataChanged(m_eData, m_mqHelper, m_editorMqDes);
     //this->readData();
 }
 
@@ -106,7 +107,7 @@ void MainService::readData()
     }
 }
 
-void MainService::notifyDataChanged(std::vector<EmployeeData> data)
+void MainService::notifyDataChanged(std::vector<EmployeeData> data, MqHelper *helper, mqd_t mqDes)
 {
     std::cout << "data changed" << std::endl;
     m_shmHelper->writeData(data, m_addresForWrite);
@@ -114,10 +115,10 @@ void MainService::notifyDataChanged(std::vector<EmployeeData> data)
     mess.type = MqType::dataChanged;
     mess.data[MQ_TYPE_INDEX] = MqType::dataChanged;
     mess.data[NUM_INDEX] = data.size();
-    m_mqHelper->send(m_viewerMqDes, &mess);
+    helper->send(mqDes, &mess);
 }
 
-void MainService::queryData(int id, MqHelper* helper)
+void MainService::queryData(int id, MqHelper* helper, mqd_t mqDes)
 {
     EmployeeGrade res = m_dataHelper->queryForId(id, m_gradeData);
     MyMess data;
@@ -126,43 +127,55 @@ void MainService::queryData(int id, MqHelper* helper)
     for (int i = 0; i < 5; i++) {
         data.data[i] = res.grade[i];
     }
-    helper->send(m_viewerMqDes, &data);
+    helper->send(mqDes, &data);
 }
 
-void MainService::searchText(std::string text, MqHelper *helper)
+void MainService::searchText(std::string text, MqHelper *helper, mqd_t mqDes)
 {
     std::cout << "search" << std::endl;
     m_mutex.lock();
     std::vector<EmployeeData> temp = m_dataHelper->searchForText(text, m_eData);
-    this->notifyDataChanged(temp);
+    this->notifyDataChanged(temp, helper, mqDes);
     m_mutex.unlock();
 }
 
-void MainService::processMessage(ClientType type, MyMess &mess, MqHelper *helper)
+void MainService::processMessage(ClientType type, MyMess &mess, MqHelper *helper, mqd_t mqDes)
 {
     int _type = mess.data[MQ_TYPE_INDEX];
     switch (_type) {
     case MqType::query: {
         int id = mess.data[ID_INDEX];
-        this->queryData(id, helper);
+        this->queryData(id, helper, mqDes);
         break;
     }
     case MqType::search: {
         std::string text = mess.name;
-        this->searchText(text, helper);
+        this->searchText(text, helper, mqDes);
         break;
     }
     case MqType::getFullList: {
         this->initData();
         m_shmHelper->writeData(m_eData, m_addresForWrite);
-        this->notifyDataChanged(m_eData);
+        this->notifyDataChanged(m_eData, helper, mqDes);
         break;
     case MqType::edit: {
-
+            this->editData(mess, helper);
             break;
         }
     }
     default:
         break;
     }
+}
+
+void MainService::editData(const MyMess &mess, MqHelper *helper)
+{
+    std::vector<int> temp;
+    for (int i = 0; i < MAX_DATA; i++) {
+        temp.push_back(mess.data[i]);
+    }
+    m_dataHelper->editData(m_gradeData, temp, FILE_LOCATION);
+    m_eData = m_dataHelper->convertToEmployeeList(m_gradeData);
+    this->notifyDataChanged(m_eData, helper, m_editorMqDes);
+    this->notifyDataChanged(m_eData, m_mqHelper, m_viewerMqDes);
 }

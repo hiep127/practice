@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../viewer/listmodel.h"
+#include "../editor/listmodel.h"
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'listmodel.h' doesn't include <QObject>."

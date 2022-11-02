@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../viewer/sharememory.h"
+#include "../editor/sharememory.h"
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'sharememory.h' doesn't include <QObject>."

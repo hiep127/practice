@@ -276,10 +276,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/hiep/practice/practice/Utils/IPCDefine.h"
+        "/home/hiep/practice/practice/Utils/CommonDefine.h"
     ],
     "directory": "/home/hiep/practice/practice/build-service-Desktop_Qt_6_4_0_GCC_64bit-Debug/.qtc_clangd",
-    "file": "/home/hiep/practice/practice/Utils/IPCDefine.h"
+    "file": "/home/hiep/practice/practice/Utils/CommonDefine.h"
 },
 {
     "arguments": [

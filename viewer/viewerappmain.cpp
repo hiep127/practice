@@ -1,10 +1,10 @@
-#include "EditorAppMain.h"
+#include "viewerappmain.h"
 #include <QQuickItem>
 #include <stdio.h>
 #include <iostream>
 #include <QQmlContext>
 
-EditorAppMain::EditorAppMain()
+ViewerAppMain::ViewerAppMain()
 {
     m_rootObject = nullptr;
     m_view = nullptr;
@@ -19,31 +19,31 @@ EditorAppMain::EditorAppMain()
     this->requestFullList();
 }
 
-EditorAppMain::~EditorAppMain()
+ViewerAppMain::~ViewerAppMain()
 {
 
 }
 
-void EditorAppMain::listSearch(QString inp)
+void ViewerAppMain::listSearch(QString inp)
 {
     std::cout << "listSearch: " << inp.toStdString() << std::endl;
     m_messageQueue->searchText(inp);
 }
 
-void EditorAppMain::queryData(int id)
+void ViewerAppMain::queryData(int id)
 {
     std::cout << "queryData: " << id << std::endl;
     m_messageQueue->queryForId(id);
 }
 
-void EditorAppMain::requestFullList()
+void ViewerAppMain::requestFullList()
 {
     m_messageQueue->requestFullList();
 }
 
 
 
-void EditorAppMain::initView()
+void ViewerAppMain::initView()
 {
     m_engine = new QQmlApplicationEngine();
     QQmlContext* ctxt = m_engine->rootContext();
@@ -53,7 +53,7 @@ void EditorAppMain::initView()
     m_rootObject = m_engine->rootObjects().first();
 }
 
-void EditorAppMain::initModel()
+void ViewerAppMain::initModel()
 {
     QList<Employee*> list;
     list.append(new Employee("hiep", 2));
@@ -64,7 +64,7 @@ void EditorAppMain::initModel()
     m_model->setList(list);
 }
 
-void EditorAppMain::connectBetweenMqAndMain()
+void ViewerAppMain::connectBetweenMqAndMain()
 {
     connect(m_messageQueue, SIGNAL(sigDataChanged(int)),
             this, SLOT(onSigDataChanged(int)));
@@ -72,7 +72,7 @@ void EditorAppMain::connectBetweenMqAndMain()
             this, SLOT(onSigEmployeeData(EmployeeGrade)));
 }
 
-void EditorAppMain::connectBetweenGUI()
+void ViewerAppMain::connectBetweenGUI()
 {
     connect(this,SIGNAL(sigUpdateData(QString,int,int,int,int,int,int)),
            m_rootObject, SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
@@ -80,12 +80,12 @@ void EditorAppMain::connectBetweenGUI()
             ,m_rootObject, SIGNAL(sigListChangedOnQML()));
 }
 
-void EditorAppMain::registerDataType()
+void ViewerAppMain::registerDataType()
 {
     qRegisterMetaType<EmployeeGrade>("EmployeeGrade");
 }
 
-void EditorAppMain::onSigDataChanged(int num)
+void ViewerAppMain::onSigDataChanged(int num)
 {
     std::cout << "receiving3" << std::endl;
     m_eData.clear();
@@ -98,7 +98,7 @@ void EditorAppMain::onSigDataChanged(int num)
     emit this->sigListChanged();
 }
 
-void EditorAppMain::onSigEmployeeData(EmployeeGrade grade)
+void ViewerAppMain::onSigEmployeeData(EmployeeGrade grade)
 {
     QString _name = QString::fromStdString(grade.eName);
     emit this->sigUpdateData(_name, grade.grade[0], grade.grade[1], grade.grade[2], grade.grade[3]
