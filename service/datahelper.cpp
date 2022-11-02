@@ -100,7 +100,19 @@ float DataHelper::calculateAverage(std::vector<int> grade)
     return res;
 }
 
-EmployeeGrade DataHelper::searchForId(int id, std::vector<EmployeeGrade> data)
+std::vector<EmployeeData> DataHelper::searchForText(std::string text, std::vector<EmployeeData> data)
+{
+    std::vector<EmployeeData> res;
+    for (auto d : data) {
+        std::string temp = d.name;
+        if (temp.find(text) != std::string::npos) {
+            res.push_back(d);
+        }
+    }
+    return res;
+}
+
+EmployeeGrade DataHelper::queryForId(int id, std::vector<EmployeeGrade> data)
 {
     for (auto i : data) {
         if (i.id == id) {

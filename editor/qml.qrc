@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HmiDefines.qml</file>
+        <file>SearchBox.qml</file>
+        <file>../image/assembly.png</file>
+        <file>../image/C++.png</file>
+        <file>../image/JS.png</file>
+        <file>../image/openGL.png</file>
+        <file>../image/QT.png</file>
+        <file>../image/green.png</file>
+        <file>../image/red.png</file>
+        <file>ScoreDetail.qml</file>
+        <file>Loading.qml</file>
+        <file>example.qml</file>
+    </qresource>
+</RCC>

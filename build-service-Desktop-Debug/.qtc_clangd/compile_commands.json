@@ -300,10 +300,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "/home/avn/practice/Utils/IPCDefine.h"
+        "/home/avn/practice/Utils/CommonDefine.h"
     ],
     "directory": "/home/avn/practice/build-service-Desktop-Debug/.qtc_clangd",
-    "file": "/home/avn/practice/Utils/IPCDefine.h"
+    "file": "/home/avn/practice/Utils/CommonDefine.h"
 },
 {
     "arguments": [

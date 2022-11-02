@@ -5,7 +5,7 @@
 
 #include <sys/shm.h>
 #include <sys/mman.h>
-#include "IPCDefine.h"
+#include "CommonDefine.h"
 #include <fcntl.h>
 
 class ShmHelper
@@ -14,8 +14,10 @@ public:
     ShmHelper();
     ~ShmHelper();
     int createShm();
-    void writeData(std::vector<EmployeeData> data, int des);
-    void readData(std::vector<EmployeeData> &rData, int des);
+    void writeData(std::vector<EmployeeData> data, EmployeeData* addr);
+    //void readData(std::vector<EmployeeData> &rData, EmployeeData* addr);
+    EmployeeData* createAddrrForWrite(int des);
+    EmployeeData* createAddrrForRead(int des);
     int openShmForRead();
 };
 

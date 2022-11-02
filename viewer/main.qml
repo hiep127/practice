@@ -6,18 +6,18 @@ Window {
     objectName: "root"
     id: root
     width: 480
-    height: 1000
+    height: 900
     visible: true
 
-
-
-    property int assemblyScore : 0
+    property int assemblyScore : 1
     property int cScore: 0
     property int jsSCore: 0
     property int qmlScore: 0
     property int openGlScore: 0
+    property string searchText
 
     signal sigUpdateDataOnQML(string name, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id )
+    signal sigListChangedOnQML()
 
     function roundFloat(num) {
         var res = num.toFixed(2)
@@ -25,13 +25,17 @@ Window {
     }
 
     onSigUpdateDataOnQML: {
-        console.log (cScore);
         currentName.text = name
         root.assemblyScore = assemScore
         root.cScore = cScore
         root.jsSCore = jsScore
         root.qmlScore = qmlScore
         root.openGlScore = openGlScore
+    }
+
+    onSigListChangedOnQML: {
+        loading.visible = false
+        listEmployee.visible = true
     }
 
     Text {
@@ -43,85 +47,57 @@ Window {
         text: "Test"
     }
 
-    ListModel {
-        id: scoreModel
-        ListElement {
-            name: "Assembly"
-            imageFile : ":/../image/assembly.png"
-            score: root.assemblyScore
-        }
-        ListElement {
-            name: "C++"
-            imageFile : ":/../image/C++.png"
-            score: root.cScore
-        }
-        ListElement {
-            name: "Java Script"
-            imageFile : ":/../image/JS.png"
-            score: root.jsSCore
-        }
-        ListElement {
-            name: "QML"
-            imageFile : ":/../image/QT.png"
-            score: root.qmlScore
-        }
-        ListElement {
-            name: "OpenGL"
-            imageFile : ":/../image/openGL.png"
-            score: root.qmlScore
-        }
-    }
-
-    ListView {
+    Column {
         id: info
         anchors.top:  currentName.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
         height: 440
-        width: bg.width - 100
-        model: scoreModel
-        interactive: false
+        width: root.width - 100
+        spacing: 10
 
-        delegate :Item {
-            id: infoDelegate
-            width: parent.width
-            height: 80
-            Row {
-                spacing: 30
-                Image {
-                    id: scoreImage
-                    source: model.imageFile
-                    width: 50
-                    height: 50
-                    smooth: true
-                    fillMode: Image.PreserveAspectFit
-                }
+        ScoreDetail {
+            id: assembly
+            score: assemblyScore
+            skillImage: ":/../image/assembly.png"
+            skill: "Assembly"
+        }
 
-                Text {
-                    id: scoreName
-                    text: model.name
-                    font.pixelSize: 30
-                    anchors.verticalCenter: scoreImage.verticalCenter
-                    width: 150
-                }
+        ScoreDetail {
+            id: cPlus
+            score: cScore
+            skillImage: ":/../image/C++.png"
+            skill: "C++"
+        }
 
-                Text {
-                    id: scoreValue
-                    text: model.score + '/5'
-                    font.pixelSize: 30
-                    anchors.verticalCenter: scoreImage.verticalCenter
-                    width: 50
-                }
+        ScoreDetail {
+            id: java
+            score: jsSCore
+            skillImage: ":/../image/JS.png"
+            skill: "JavaScript"
+        }
 
-                Image {
-                    id: checkImage
-                    source: score[skill[scoreName.text]] >= 3 ? ":/../image/green.png" : ":/../image/red.png"
-                    width: 50
-                    height: 50
-                    smooth: true
-                    fillMode: Image.PreserveAspectCrop
-                }
-            }
+        ScoreDetail {
+            id: qml
+            score: qmlScore
+            skillImage: ":/../image/QT.png"
+            skill: "QML"
+        }
+
+        ScoreDetail {
+            id: openGL
+            score: openGlScore
+            skillImage: ":/../image/openGL.png"
+            skill: "openGL"
+        }
+    }
+
+    Timer {
+        id: timerSearch
+        interval: 500
+        onTriggered: {
+            appMain.listSearch(searchText)
+            console.log(searchText)
         }
     }
 
@@ -131,8 +107,21 @@ Window {
         anchors.top: info.bottom
         anchors.topMargin: 30
         onTextInputChanged: {
-            console.log(textInput)
-            appMain.listSearch(textInput)
+            listEmployee.currentIndex = -1
+            searchText = textInput
+            timerSearch.stop()
+            timerSearch.start()
+            if (textInput !== "") {
+                loading.visible = true
+                listEmployee.visible = false
+            }
+            else {
+                loading.visible = false
+                listEmployee.visible = true
+                timerSearch.stop()
+                appMain.requestFullList()
+            }
+
         }
     }
 
@@ -161,7 +150,7 @@ Window {
     ListView {
         id: listEmployee
         objectName: "listEmployee"
-
+        visible: true
         model: employeeModel
 
         anchors.left: parent.left
@@ -208,10 +197,16 @@ Window {
                 id: area
                 anchors.fill: parent
                 onClicked: {
+                    console.log(model.id)
                     listEmployee.currentIndex = index;
                     appMain.queryData(model.id)
                 }
             }
         }
+    }
+
+    Loading {
+        id: loading
+        anchors.fill: listEmployee
     }
 }

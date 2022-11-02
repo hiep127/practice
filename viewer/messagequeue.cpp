@@ -31,10 +31,11 @@ void *MessageQueue::receive()
             switch(_type) {
             case MqType::dataChanged: {
                  std::cout << "receiving2     " << std::endl;
-                 emit sigDataChanged();
+                 int num = m_mqMess.data[NUM_INDEX];
+                 emit sigDataChanged(num);
                  break;
             }
-            case MqType::search: {
+            case MqType::query: {
                 std::cout << "receiving2     " << std::endl;
                 EmployeeGrade _grade;
                 _grade.id = m_mqMess.data[ID_INDEX];
@@ -59,11 +60,27 @@ void MessageQueue::runMQThread()
     t1.detach();
 }
 
-void MessageQueue::searchForId(int id)
+void MessageQueue::queryForId(int id)
 {
     std::cout << "search for id: " << id << std::endl;
     MyMess mess;
-    mess.type = search;
+    mess.type = MqType::query;
     mess.data[ID_INDEX] = id;
+    m_mqHelper->send(m_mqDes, &mess);
+}
+
+void MessageQueue::searchText(QString inp)
+{
+    MyMess mess;
+    mess.data[MQ_TYPE_INDEX] = MqType::search;
+    strncpy(mess.name, inp.toStdString().c_str(), sizeof(inp.toStdString()));
+    m_mqHelper->send(m_mqDes, &mess);
+
+}
+
+void MessageQueue::requestFullList()
+{
+    MyMess mess;
+    mess.data[MQ_TYPE_INDEX] = MqType::getFullList;
     m_mqHelper->send(m_mqDes, &mess);
 }

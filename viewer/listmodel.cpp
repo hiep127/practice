@@ -50,7 +50,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 
 void ListModel::setList(const QList<Employee*> &list)
 {
-    qDebug() << list.count();
+   // qDebug() << list.count();
     beginResetModel();
     m_list.clear();
     m_list = list;

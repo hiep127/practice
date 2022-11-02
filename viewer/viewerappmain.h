@@ -1,5 +1,5 @@
-#ifndef VIEWERAPPMAIN_H
-#define VIEWERAPPMAIN_H
+#ifndef EditorAppMain_H
+#define EditorAppMain_H
 
 #include "sharememory.h"
 #include <QObject>
@@ -9,19 +9,20 @@
 #include <listmodel.h>
 #include <messagequeue.h>
 #include <../Utils/mqhelper.h>
-#include <../Utils/IPCDefine.h>
+#include <../Utils/CommonDefine.h>
 #include <../Utils/shmhelper.h>
 
 
-class ViewerAppMain : public QObject
+class EditorAppMain : public QObject
 {
     Q_OBJECT
 public:
-    ViewerAppMain();
-    ~ViewerAppMain();
+    EditorAppMain();
+    ~EditorAppMain();
 
     Q_INVOKABLE void listSearch(QString inp);
     Q_INVOKABLE void queryData(int id);
+    Q_INVOKABLE void requestFullList();
     int getCount();
 
 
@@ -35,13 +36,14 @@ private:
 
 signals:
     void sigUpdateData(QString name, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id);
+    void sigListChanged();
 
 private slots:
-    void onSigDataChanged();
+    void onSigDataChanged(int num);
     void onSigEmployeeData(EmployeeGrade grade);
 private:
     QQuickView* m_view;
-    QList<QObject*> m_rootObject;
+    QObject* m_rootObject;
     QQmlApplicationEngine* m_engine;
     ListModel* m_model ;
     MessageQueue* m_messageQueue;
@@ -50,4 +52,4 @@ private:
 
 };
 
-#endif // VIEWERAPPMAIN_H
+#endif // EditorAppMain_H

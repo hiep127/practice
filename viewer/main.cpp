@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "viewerappmain.h"
+#include "EditorAppMain.h"
 #include <QQmlContext>
 #include "listmodel.h"
 
@@ -25,6 +25,6 @@ int main(int argc, char *argv[])
 //    model.setList(list);
 //    if (engine.rootObjects().isEmpty())
 //        return -1;
-    ViewerAppMain appmain;
+    EditorAppMain appmain;
     return app.exec();
 }

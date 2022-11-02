@@ -1,7 +1,7 @@
 #ifndef MQHELPER_H
 #define MQHELPER_H
 
-#include "IPCDefine.h"
+#include "CommonDefine.h"
 #include <mqueue.h>
 
 class MqHelper

@@ -2,7 +2,7 @@
 #define MESSAGEQUEUE_H
 
 #include <../Utils/mqhelper.h>
-#include <../Utils/IPCDefine.h>
+#include <../Utils/CommonDefine.h>
 #include <QObject>
 #include <thread>
 //#include <queue>
@@ -16,10 +16,13 @@ public:
     void connect();
     void *receive();
     void runMQThread();
-    void searchForId(int id);
+    void queryForId(int id);
+    void searchText(QString inp);
+    void requestFullList();
+
 
 signals:
-    void sigDataChanged();
+    void sigDataChanged(int num);
     void sigEmployeeData(EmployeeGrade grade);
 
 private:

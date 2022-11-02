@@ -1,12 +1,12 @@
-#include "viewerappmain.h"
+#include "EditorAppMain.h"
 #include <QQuickItem>
 #include <stdio.h>
 #include <iostream>
 #include <QQmlContext>
 
-ViewerAppMain::ViewerAppMain()
+EditorAppMain::EditorAppMain()
 {
-    //m_rootObject = nullptr;
+    m_rootObject = nullptr;
     m_view = nullptr;
     m_model = new ListModel();
     this->initView();
@@ -16,36 +16,44 @@ ViewerAppMain::ViewerAppMain()
     this->connectBetweenMqAndMain();
     this->connectBetweenGUI();
     m_shm = new ShareMemory();
+    this->requestFullList();
 }
 
-ViewerAppMain::~ViewerAppMain()
+EditorAppMain::~EditorAppMain()
 {
 
 }
 
-void ViewerAppMain::listSearch(QString inp)
+void EditorAppMain::listSearch(QString inp)
 {
-
+    std::cout << "listSearch: " << inp.toStdString() << std::endl;
+    m_messageQueue->searchText(inp);
 }
 
-void ViewerAppMain::queryData(int id)
+void EditorAppMain::queryData(int id)
 {
-    m_messageQueue->searchForId(id);
+    std::cout << "queryData: " << id << std::endl;
+    m_messageQueue->queryForId(id);
+}
+
+void EditorAppMain::requestFullList()
+{
+    m_messageQueue->requestFullList();
 }
 
 
 
-void ViewerAppMain::initView()
+void EditorAppMain::initView()
 {
     m_engine = new QQmlApplicationEngine();
     QQmlContext* ctxt = m_engine->rootContext();
     ctxt->setContextProperty("employeeModel", m_model);
     ctxt->setContextProperty("appMain", this);
     m_engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
-    m_rootObject = m_engine->rootObjects();
+    m_rootObject = m_engine->rootObjects().first();
 }
 
-void ViewerAppMain::initModel()
+void EditorAppMain::initModel()
 {
     QList<Employee*> list;
     list.append(new Employee("hiep", 2));
@@ -56,38 +64,41 @@ void ViewerAppMain::initModel()
     m_model->setList(list);
 }
 
-void ViewerAppMain::connectBetweenMqAndMain()
+void EditorAppMain::connectBetweenMqAndMain()
 {
-    connect(m_messageQueue, SIGNAL(sigDataChanged()),
-            this, SLOT(onSigDataChanged()));
+    connect(m_messageQueue, SIGNAL(sigDataChanged(int)),
+            this, SLOT(onSigDataChanged(int)));
     connect(m_messageQueue, SIGNAL(sigEmployeeData(EmployeeGrade)),
             this, SLOT(onSigEmployeeData(EmployeeGrade)));
 }
 
-void ViewerAppMain::connectBetweenGUI()
+void EditorAppMain::connectBetweenGUI()
 {
     connect(this,SIGNAL(sigUpdateData(QString,int,int,int,int,int,int)),
-            m_rootObject.first(), SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
+           m_rootObject, SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
+    connect(this, SIGNAL(sigListChanged())
+            ,m_rootObject, SIGNAL(sigListChangedOnQML()));
 }
 
-void ViewerAppMain::registerDataType()
+void EditorAppMain::registerDataType()
 {
-    qRegisterMetaType<EmployeeData>("EmployeeData");
+    qRegisterMetaType<EmployeeGrade>("EmployeeGrade");
 }
 
-void ViewerAppMain::onSigDataChanged()
+void EditorAppMain::onSigDataChanged(int num)
 {
     std::cout << "receiving3" << std::endl;
-    m_eData = m_shm->readData();
+    m_eData.clear();
+    m_eData = m_shm->readData(num);
     QList<Employee*> list;
-    for (auto data : m_eData) {
-        std::cout << data.name << std::endl;
-        list.append(new Employee(data.name, data.average, data.id));
+    for (int i = 0; i < num; i++) {
+        list.append(new Employee(m_eData[i].name, m_eData[i].average, m_eData[i].id));
     }
     m_model->setList(list);
+    emit this->sigListChanged();
 }
 
-void ViewerAppMain::onSigEmployeeData(EmployeeGrade grade)
+void EditorAppMain::onSigEmployeeData(EmployeeGrade grade)
 {
     QString _name = QString::fromStdString(grade.eName);
     emit this->sigUpdateData(_name, grade.grade[0], grade.grade[1], grade.grade[2], grade.grade[3]

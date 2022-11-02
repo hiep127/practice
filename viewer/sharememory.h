@@ -12,12 +12,13 @@ public:
     ShareMemory();
     ~ShareMemory();
     void openShm();
-    std::vector<EmployeeData> readData();
+    std::vector<EmployeeData> readData(int num);
 
 private:
     int m_shmDes;
     ShmHelper* m_helper;
-    std::vector<EmployeeData> m_eData;
+
+    EmployeeData* m_addrForRead;
 
 
 };

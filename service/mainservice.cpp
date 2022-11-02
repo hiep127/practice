@@ -7,12 +7,16 @@ MainService::MainService()
     m_shmHelper = new ShmHelper();
     this->createMQ();
     this->initData();
+    this->initShm();
     m_thread[ClientType::viewer]->join();
 }
 
 MainService::~MainService()
 {
-
+    munmap(m_addresForWrite, 4096);
+    shmdt(m_addresForWrite);
+    close(m_shmDes);
+    shmctl(m_shmDes,IPC_RMID,NULL);
 }
 
 void MainService::createMQ()
@@ -39,23 +43,7 @@ void* MainService::receiveFromViewer()
         ssize_t sz = viewerHelper->receive(m_viewerMqDes, &_viewerMess);
         if (sz > 0) {
             std::cout << "receive from viewer " << std::endl;
-            int _type = _viewerMess.data[MQ_TYPE_INDEX];
-            switch (_type) {
-            case search: {
-                int id = _viewerMess.data[ID_INDEX];
-                EmployeeGrade res = m_dataHelper->searchForId(id, m_gradeData);
-                MyMess data;
-                data.data[MQ_TYPE_INDEX] = search;
-                strncpy(data.name, res.eName.c_str(), sizeof(res.eName));
-                for (int i = 0; i < 5; i++) {
-                    data.data[i] = res.grade[i];
-                }
-                viewerHelper->send(m_viewerMqDes, &data);
-            }
-            default:
-                break;
-            }
-
+            this->processMessage(ClientType::viewer, _viewerMess, viewerHelper);
         }
     }
 }
@@ -86,42 +74,90 @@ void MainService::runEditorMQ()
 
 void MainService::initData()
 {
+    m_mutex.lock();
     m_gradeData = m_dataHelper->getDataFromFile(FILE_LOCATION);
     m_eData = m_dataHelper->convertToEmployeeList(m_gradeData);
-    this->initShm();
     //m_dataHelper->printData(m_data);
+    m_mutex.unlock();
 }
 
 void MainService::writeData(std::vector<EmployeeGrade> data)
 {
     std::vector<EmployeeData> _data = m_dataHelper->convertToEmployeeList(data);
-    m_shmHelper->writeData(_data, m_shmDes);
+    m_shmHelper->writeData(_data, m_addresForWrite);
 }
 
 void MainService::initShm()
 {
     m_shmDes = m_shmHelper->createShm();
-
-    this->notifyDataChanged();
+    m_addresForWrite = m_shmHelper->createAddrrForWrite(m_shmDes);
+    this->notifyDataChanged(m_eData);
     //this->readData();
 }
 
 void MainService::readData()
 {
     std::cout << "readData" << std::endl;
-    m_shmHelper->readData(m_eData, m_shmDes);
+    //m_shmHelper->readData(m_eData, m_shmDes);
     for (auto i : m_eData) {
         std::cout << i.name << std::endl ;
     }
 }
 
-void MainService::notifyDataChanged()
+void MainService::notifyDataChanged(std::vector<EmployeeData> data)
 {
     std::cout << "data changed" << std::endl;
-    m_shmHelper->writeData(m_eData, m_shmDes);
+    m_shmHelper->writeData(data, m_addresForWrite);
     MyMess mess;
-    mess.type = dataChanged;
-    mess.data[MQ_TYPE_INDEX] = dataChanged;
-    strncpy (mess.name, "hello", sizeof("hello"));
+    mess.type = MqType::dataChanged;
+    mess.data[MQ_TYPE_INDEX] = MqType::dataChanged;
+    mess.data[NUM_INDEX] = data.size();
     m_mqHelper->send(m_viewerMqDes, &mess);
+}
+
+void MainService::queryData(int id, MqHelper* helper)
+{
+    EmployeeGrade res = m_dataHelper->queryForId(id, m_gradeData);
+    MyMess data;
+    data.data[MQ_TYPE_INDEX] = query;
+    strncpy(data.name, res.eName.c_str(), sizeof(res.eName));
+    for (int i = 0; i < 5; i++) {
+        data.data[i] = res.grade[i];
+    }
+    helper->send(m_viewerMqDes, &data);
+}
+
+void MainService::searchText(std::string text, MqHelper *helper)
+{
+    std::cout << "search" << std::endl;
+    m_mutex.lock();
+    std::vector<EmployeeData> temp = m_dataHelper->searchForText(text, m_eData);
+    this->notifyDataChanged(temp);
+    m_mutex.unlock();
+}
+
+void MainService::processMessage(ClientType type, MyMess &mess, MqHelper *helper)
+{
+    int _type = mess.data[MQ_TYPE_INDEX];
+    switch (_type) {
+    case MqType::query: {
+        int id = mess.data[ID_INDEX];
+        this->queryData(id, helper);
+        break;
+    }
+    case MqType::search: {
+        std::string text = mess.name;
+        this->searchText(text, helper);
+        break;
+    }
+    case MqType::getFullList: {
+        this->initData();
+        m_shmHelper->writeData(m_eData, m_addresForWrite);
+        this->notifyDataChanged(m_eData);
+        break;
+
+    }
+    default:
+        break;
+    }
 }

@@ -15,7 +15,7 @@ SOURCES += \
 
 
 HEADERS += \
-    ../Utils/IPCDefine.h \
+    ../Utils/CommonDefine.h \
     ../Utils/mqhelper.h \
     ../Utils/shmhelper.h \
     DataDefine.h \
@@ -25,3 +25,5 @@ HEADERS += \
 
 LIBS += -lrt \
         -lpthread
+
+DISTFILES +=

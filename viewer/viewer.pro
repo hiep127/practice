@@ -12,7 +12,7 @@ SOURCES += \
         main.cpp \
         messagequeue.cpp \
         sharememory.cpp \
-        viewerappmain.cpp
+        EditorAppMain.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,7 +37,7 @@ HEADERS += \
     listmodel.h \
     messagequeue.h \
     sharememory.h \
-    viewerappmain.h
+    EditorAppMain.h
 
 LIBS += -lrt \
         -lpthread
@@ -47,5 +47,7 @@ DISTFILES += \
     ../image/JS.png \
     ../image/QT.png \
     ../image/assembly.png \
-    ../image/openGL.png
+    ../image/openGL.png \
+    Loading.qml \
+    SearchBox.qml
 

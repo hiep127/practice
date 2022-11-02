@@ -8,10 +8,11 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include <../Utils/mqhelper.h>
-#include <../Utils/IPCDefine.h>
+#include <../Utils/CommonDefine.h>
 #include <datahelper.h>
 #include <../Utils/shmhelper.h>
 #include <thread>
+#include <mutex>
 
 
 class MainService
@@ -29,7 +30,10 @@ public:
     void writeData(std::vector<EmployeeGrade> data);
     void initShm();
     void readData();
-    void notifyDataChanged();
+    void notifyDataChanged(std::vector<EmployeeData> data);
+    void queryData(int id, MqHelper* helper);
+    void searchText(std::string text, MqHelper* helper);
+    void processMessage(ClientType type, MyMess& mess, MqHelper* helper);
 
 
 
@@ -47,6 +51,8 @@ private:
     std::vector<EmployeeGrade> m_gradeData;
     int m_shmDes;
     std::vector<EmployeeData> m_eData;
+    std::mutex m_mutex;
+    EmployeeData* m_addresForWrite;
 };
 
 #endif // MAINSERVICE_H
