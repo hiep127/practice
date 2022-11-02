@@ -3,20 +3,20 @@ import QtQuick.Window 2.15
 
 Window {
     property int count: 0
-    objectName: "bg"
-    id: bg
+    objectName: "root"
+    id: root
     width: 480
     height: 1000
     visible: true
 
-    property variant score : [  2, 3, 1, 5, 4]
-    property var skill: {
-        "Assembly": 0,
-        "C++" : 1,
-        "Java Script" : 2,
-        "QML": 3,
-        "OpenGL": 4
-    }
+
+
+    property int assemblyScore : 0
+    property int cScore: 0
+    property int jsSCore: 0
+    property int qmlScore: 0
+    property int openGlScore: 0
+
     signal sigUpdateDataOnQML(string name, int assemScore, int cScore, int jsScore, int qmlScore, int openGlScore, int id )
 
     function roundFloat(num) {
@@ -25,12 +25,13 @@ Window {
     }
 
     onSigUpdateDataOnQML: {
+        console.log (cScore);
         currentName.text = name
-        score[skill["Assembly"]] = assemScore
-        score[skill["C++"]] = cScore
-        score[skill["Java Script"]] = jsScore
-        score[skill["QML"]] = qmlScore
-        score[skill["OpenGL"]] = openGlScore
+        root.assemblyScore = assemScore
+        root.cScore = cScore
+        root.jsSCore = jsScore
+        root.qmlScore = qmlScore
+        root.openGlScore = openGlScore
     }
 
     Text {
@@ -47,22 +48,27 @@ Window {
         ListElement {
             name: "Assembly"
             imageFile : ":/../image/assembly.png"
+            score: root.assemblyScore
         }
         ListElement {
             name: "C++"
             imageFile : ":/../image/C++.png"
+            score: root.cScore
         }
         ListElement {
             name: "Java Script"
             imageFile : ":/../image/JS.png"
+            score: root.jsSCore
         }
         ListElement {
             name: "QML"
             imageFile : ":/../image/QT.png"
+            score: root.qmlScore
         }
         ListElement {
             name: "OpenGL"
             imageFile : ":/../image/openGL.png"
+            score: root.qmlScore
         }
     }
 
@@ -101,7 +107,7 @@ Window {
 
                 Text {
                     id: scoreValue
-                    text: score[skill[scoreName.text]] + '/5'
+                    text: model.score + '/5'
                     font.pixelSize: 30
                     anchors.verticalCenter: scoreImage.verticalCenter
                     width: 50

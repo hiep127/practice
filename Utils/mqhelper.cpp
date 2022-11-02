@@ -58,7 +58,6 @@ int MqHelper::send(mqd_t mqdes, MyMess* mess )
 ssize_t MqHelper::receive(mqd_t mqdes, MyMess* mess)
 {
     ssize_t res= mq_receive(mqdes, (char*) mess, MAX_MQ_MESS_LEN + 3, NULL);
-    std::cout << "hiep " <<  mess->name <<  "    " << mess->type << std::endl;
     if (res == -1 ) perror("mq_receive error: ");
     return res;
 }

@@ -41,7 +41,7 @@ private slots:
     void onSigEmployeeData(EmployeeGrade grade);
 private:
     QQuickView* m_view;
-    QQuickItem* m_rootObject;
+    QList<QObject*> m_rootObject;
     QQmlApplicationEngine* m_engine;
     ListModel* m_model ;
     MessageQueue* m_messageQueue;

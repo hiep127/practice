@@ -31,16 +31,20 @@ void *MessageQueue::receive()
             switch(_type) {
             case MqType::dataChanged: {
                  std::cout << "receiving2     " << std::endl;
-                emit sigDataChanged();
+                 emit sigDataChanged();
+                 break;
             }
             case MqType::search: {
+                std::cout << "receiving2     " << std::endl;
                 EmployeeGrade _grade;
                 _grade.id = m_mqMess.data[ID_INDEX];
                 _grade.eName = m_mqMess.name;
+                _grade.grade.resize(5);
                 for (int i = 0; i < 5; i++) {
                     _grade.grade[i] = m_mqMess.data[i];
                 }
                 emit sigEmployeeData(_grade);
+                break;
             }
             default:
                 break;

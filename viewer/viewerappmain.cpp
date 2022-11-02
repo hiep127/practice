@@ -6,7 +6,7 @@
 
 ViewerAppMain::ViewerAppMain()
 {
-    m_rootObject = nullptr;
+    //m_rootObject = nullptr;
     m_view = nullptr;
     m_model = new ListModel();
     this->initView();
@@ -42,6 +42,7 @@ void ViewerAppMain::initView()
     ctxt->setContextProperty("employeeModel", m_model);
     ctxt->setContextProperty("appMain", this);
     m_engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
+    m_rootObject = m_engine->rootObjects();
 }
 
 void ViewerAppMain::initModel()
@@ -66,7 +67,7 @@ void ViewerAppMain::connectBetweenMqAndMain()
 void ViewerAppMain::connectBetweenGUI()
 {
     connect(this,SIGNAL(sigUpdateData(QString,int,int,int,int,int,int)),
-            m_engine, SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
+            m_rootObject.first(), SIGNAL(sigUpdateDataOnQML(QString,int,int,int,int,int,int)));
 }
 
 void ViewerAppMain::registerDataType()
@@ -88,5 +89,7 @@ void ViewerAppMain::onSigDataChanged()
 
 void ViewerAppMain::onSigEmployeeData(EmployeeGrade grade)
 {
-
+    QString _name = QString::fromStdString(grade.eName);
+    emit this->sigUpdateData(_name, grade.grade[0], grade.grade[1], grade.grade[2], grade.grade[3]
+            , grade.grade[4], grade.grade[ID_INDEX]);
 }
